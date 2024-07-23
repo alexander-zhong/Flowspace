@@ -3,10 +3,13 @@ import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 import connectToDB from "./config/dbSetup.js";
+import cookieParser from "cookie-parser";
 
 // Config the express app
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 dotenv.config();
 
 // Cors policy
@@ -23,7 +26,10 @@ app.get("/", (req, res) => {
   return res.status(404).send("N/A");
 });
 
-app.listen(process.env.PORT, () => {
+// Authentication routes
+app.get("/api/users", userRoutes);
+
+app.app.listen(process.env.PORT, () => {
   console.log(`App is running on port ${process.env.PORT}`);
 });
 
