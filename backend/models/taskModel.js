@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-// Schema for tasks
+// Schema for tasks (no collection in mongodb just for embedded schema in users)
 const taskSchema = mongoose.Schema({
   task: {
     type: String,
@@ -12,6 +12,4 @@ const taskSchema = mongoose.Schema({
   },
 });
 
-const Task = mongoose.model("Task", taskSchema);
-
-export default Task;
+export default taskSchema;

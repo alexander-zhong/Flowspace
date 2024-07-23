@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import Task from "taskModel.js";
+import taskSchema from "./taskModel.js";
 
 const userSchema = mongoose.Schema(
   {
@@ -18,7 +18,7 @@ const userSchema = mongoose.Schema(
       required: true,
     },
     tasks: {
-      type: [Task],
+      type: [taskSchema],
       required: true,
     },
   },

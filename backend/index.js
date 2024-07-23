@@ -4,6 +4,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import connectToDB from "./config/dbSetup.js";
 import cookieParser from "cookie-parser";
+import userRoutes from "./routes/userRoutes.js";
 
 // Config the express app
 const app = express();
@@ -29,7 +30,7 @@ app.get("/", (req, res) => {
 // Authentication routes
 app.get("/api/users", userRoutes);
 
-app.app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT, () => {
   console.log(`App is running on port ${process.env.PORT}`);
 });
 
