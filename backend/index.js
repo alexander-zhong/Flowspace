@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import mongoose from "mongoose";
+import connectToDB from "./config/dbSetup.js";
 
 // Config the express app
 const app = express();
@@ -17,10 +19,13 @@ app.use(
 );
 
 // Home
-app.get("/", () => {
-  return response.status(404).send("N/A");
+app.get("/", (req, res) => {
+  return res.status(404).send("N/A");
 });
 
 app.listen(process.env.PORT, () => {
   console.log(`App is running on port ${process.env.PORT}`);
 });
+
+// Connects to the mongodb database
+connectToDB();
