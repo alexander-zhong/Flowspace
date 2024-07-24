@@ -19,6 +19,6 @@ router
   .route("/profile")
   .get(protectedRoute, getUser)
   .put(protectedRoute, updateUser);
-router.put("/updateTasks", protectedRoute, updateTasks);
+router.put("/updatetasks", protectedRoute, updateTasks);
 
 export default router;

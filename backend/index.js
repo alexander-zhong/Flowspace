@@ -1,7 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import mongoose from "mongoose";
 import connectToDB from "./config/dbSetup.js";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/userRoutes.js";

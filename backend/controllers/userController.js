@@ -9,7 +9,6 @@ const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
-
   if (user && (await user.checkPassword(password))) {
     generateToken(res, user._id);
     return res.status(201).json({
@@ -123,21 +122,24 @@ const updateUser = asyncHandler(async (req, res) => {
 // @access Private (requiring JWT)
 const updateTasks = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
+  console.log(user);
 
   if (user) {
-    user.tasks = req.body.tasks;
+    user.tasks = req.body.tasks || user.tasks;
+    const updatedUser = await user.save();
+
+    req.user = updatedUser;
+
+    res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      tasks: updatedUser.tasks,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
   }
-
-  const updatedUser = await user.save();
-
-  req.user = updatedUser;
-
-  res.status(200).json({
-    _id: updatedUser._id,
-    name: updatedUser.name,
-    email: updatedUser.email,
-    tasks: updatedUser.tasks,
-  });
 });
 
 export {
