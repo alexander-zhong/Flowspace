@@ -7,6 +7,7 @@ import {
   getUser,
   updateUser,
   updateTasks,
+  getTasks,
 } from "../controllers/userController.js";
 // Config router
 const router = express.Router();
@@ -19,6 +20,8 @@ router
   .route("/profile")
   .get(protectedRoute, getUser)
   .put(protectedRoute, updateUser);
-router.put("/updatetasks", protectedRoute, updateTasks);
-
+router
+  .route("/tasks")
+  .put(protectedRoute, updateTasks)
+  .get(protectedRoute, getTasks);
 export default router;

@@ -8,9 +8,13 @@ import generateToken from "../utils/generateToken.js";
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
+  // queries for the user
   const user = await User.findOne({ email });
+
+  // user exits and password matches generate token
   if (user && (await user.checkPassword(password))) {
     generateToken(res, user._id);
+
     return res.status(201).json({
       _id: user._id,
       name: user.name,
@@ -118,11 +122,10 @@ const updateUser = asyncHandler(async (req, res) => {
 });
 
 // @desc Add User's Tasks
-// PUT /api/users/updatetasks
+// PUT /api/users/tasks
 // @access Private (requiring JWT)
 const updateTasks = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
-  console.log(user);
 
   if (user) {
     user.tasks = req.body.tasks || user.tasks;
@@ -138,7 +141,21 @@ const updateTasks = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error("User not found");
+    throw new Error("User not found.");
+  }
+});
+
+// @desc Get User's Tasks
+// GET /api/users/tasks
+// @access Private (requiring JWT)
+const getTasks = asyncHandler(async (req, res) => {
+  const tasks = req.user.tasks;
+
+  if (tasks) {
+    return res.status(200).json(tasks);
+  } else {
+    res.status(404);
+    throw new Error("User not found.");
   }
 });
 
@@ -149,4 +166,5 @@ export {
   getUser,
   updateUser,
   updateTasks,
+  getTasks,
 };
