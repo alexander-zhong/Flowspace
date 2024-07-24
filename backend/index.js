@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import connectToDB from "./config/dbSetup.js";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/userRoutes.js";
+import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
 // Config the express app
 const app = express();
@@ -27,8 +28,12 @@ app.get("/", (req, res) => {
   return res.status(404).send("N/A");
 });
 
-// Authentication routes
-app.get("/api/users", userRoutes);
+// User & Tasks routes
+app.use("/api/users", userRoutes);
+
+// Error handling middleware
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
   console.log(`App is running on port ${process.env.PORT}`);

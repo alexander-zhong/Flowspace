@@ -27,13 +27,17 @@ const loginUser = asyncHandler(async (req, res) => {
 // POST /api/users/register
 // @access Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  // Getting the variables from register use
+  const { name, email, password, confirmpassword } = req.body;
 
   const userExists = await User.findOne({ email: email });
 
   if (userExists) {
     res.status(400);
     throw new Error("User already exists with this email");
+  } else if (password != confirmpassword) {
+    res.status(400);
+    throw new Error("Passwords do not match");
   }
 
   const user = await User.create({

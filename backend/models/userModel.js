@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import taskSchema from "./taskModel.js";
 
+// User Schema
 const userSchema = mongoose.Schema(
   {
     name: {
@@ -27,10 +28,12 @@ const userSchema = mongoose.Schema(
   }
 );
 
+// Auth method for checking password equals to the database stored password
 userSchema.methods.checkPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
+// Hashes the password entered when saving
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
