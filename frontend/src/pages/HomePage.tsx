@@ -1,5 +1,12 @@
+import { Button } from "@mui/material";
+import Navbar from "../components/Navbar";
+
 const HomePage = () => {
-  return <div>HomePage</div>;
+  return (
+    <>
+      <Navbar></Navbar>
+    </>
+  );
 };
 
 export default HomePage;

@@ -13,13 +13,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import logo from "../assets/Navbar.png";
 
 interface Props {
   window?: () => Window;
 }
 
 const drawerWidth = 240;
-const navItems = ["Account", "Tasks", "Focus"];
+const navItems = ["Tasks", "Focus", "Account"];
 
 export default function Navbar(props: Props) {
   const { window } = props;
@@ -32,14 +33,14 @@ export default function Navbar(props: Props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
+        <Box component="img" sx={{ height: 38 }} src={logo} />
       </Typography>
       <Divider />
       <List>
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
+              <ListItemText primary={item} sx={{ color: "white" }} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -67,14 +68,20 @@ export default function Navbar(props: Props) {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", sm: "block", color: "white" },
+            }}
           >
-            MUI
+            <Box component="img" sx={{ height: 38 }} src={logo} />
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#fff" }}>
-                <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+              <Button key={item} sx={{ color: "white" }}>
+                <Typography
+                  variant="body2"
+                  sx={{ fontWeight: "bold", color: "white" }}
+                >
                   {item}
                 </Typography>
               </Button>
@@ -88,6 +95,7 @@ export default function Navbar(props: Props) {
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
+          color="inherit"
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
           }}
@@ -96,6 +104,7 @@ export default function Navbar(props: Props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
+              bgcolor: "primary.main",
             },
           }}
         >
