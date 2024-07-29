@@ -1,10 +1,10 @@
 import { Button } from "@mui/material";
-import Navbar from "../components/Navbar";
+import NavbarPublic from "../components/NavbarPublic";
 
 const HomePage = () => {
   return (
     <>
-      <Navbar></Navbar>
+      <NavbarPublic></NavbarPublic>
     </>
   );
 };
