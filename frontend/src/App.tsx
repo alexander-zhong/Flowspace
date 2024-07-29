@@ -1,14 +1,12 @@
-import React from "react";
-// Import styles of packages that you've installed.
-// All packages except `@mantine/hooks` require styles imports
-import "@mantine/core/styles.css";
-import { MantineProvider } from "@mantine/core";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+// Mainly for notifications within the app
 const App = () => {
   return (
-    <MantineProvider>
-      <div>App</div>
-    </MantineProvider>
+    <>
+      <ToastContainer />
+    </>
   );
 };
 
