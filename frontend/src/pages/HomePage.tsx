@@ -2,11 +2,7 @@ import { Button } from "@mui/material";
 import NavbarPublic from "../components/NavbarPublic";
 
 const HomePage = () => {
-  return (
-    <>
-      <NavbarPublic></NavbarPublic>
-    </>
-  );
+  return <></>;
 };
 
 export default HomePage;
