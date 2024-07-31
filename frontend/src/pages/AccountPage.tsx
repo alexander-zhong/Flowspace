@@ -1,11 +1,5 @@
-import Navbar from "../components/Navbar";
-
 const Account = () => {
-  return (
-    <>
-      <Navbar />
-    </>
-  );
+  return <></>;
 };
 
 export default Account;

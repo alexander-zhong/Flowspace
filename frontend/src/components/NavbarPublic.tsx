@@ -15,19 +15,33 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import logo from "../assets/Navbar.png";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../store";
 
 interface Props {
   window?: () => Window;
 }
 
 const drawerWidth = 240;
-const navItems = [
-  { name: "Home", path: "/" },
+
+// Items for users that are not logged in
+const navPublicItems = [
+  { name: "Flowspace", path: "/" },
   { name: "Login", path: "/login" },
   { name: "Register", path: "/register" },
 ];
 
+// Items for users that are logged in
+const navUserItems = [
+  { name: "Home", path: "/overview" },
+  { name: "Tasks", path: "/tasks" },
+  { name: "Focus", path: "/focus" },
+  { name: "Logout", path: "/logout" },
+];
+
 export default function Navbar(props: Props) {
+  const { userInfo } = useSelector((state: RootState) => state.auth);
+
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -43,17 +57,29 @@ export default function Navbar(props: Props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item.name} disablePadding>
-            <ListItemButton
-              component={Link}
-              to={item.path}
-              sx={{ textAlign: "center" }}
-            >
-              <ListItemText primary={item.name} sx={{ color: "white" }} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {userInfo
+          ? navUserItems.map((item) => (
+              <ListItem key={item.name} disablePadding>
+                <ListItemButton
+                  component={Link}
+                  to={item.path}
+                  sx={{ textAlign: "center" }}
+                >
+                  <ListItemText primary={item.name} />
+                </ListItemButton>
+              </ListItem>
+            ))
+          : navPublicItems.map((item) => (
+              <ListItem key={item.name} disablePadding>
+                <ListItemButton
+                  component={Link}
+                  to={item.path}
+                  sx={{ textAlign: "center" }}
+                >
+                  <ListItemText primary={item.name} />
+                </ListItemButton>
+              </ListItem>
+            ))}
       </List>
     </Box>
   );
@@ -80,27 +106,35 @@ export default function Navbar(props: Props) {
             component="div"
             sx={{
               flexGrow: 1,
-              display: { xs: "none", sm: "block", color: "white" },
+              display: { xs: "none", sm: "block" },
             }}
           >
             <Box component="img" sx={{ height: 38 }} src={logo} />
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <Button
-                component={Link}
-                to={item.path}
-                key={item.name}
-                sx={{ color: "white" }}
-              >
-                <Typography
-                  variant="body2"
-                  sx={{ fontWeight: "bold", color: "white" }}
-                >
-                  {item.name}
-                </Typography>
-              </Button>
-            ))}
+            {userInfo
+              ? navUserItems.map((item) => (
+                  <Button
+                    component={Link}
+                    to={item.path}
+                    key={item.name}
+                    sx={{ textTransform: "none" }}
+                  >
+                    <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+                      {item.name}
+                    </Typography>
+                  </Button>
+                ))
+              : navPublicItems.map((item) => (
+                  <Button component={Link} to={item.path} key={item.name}>
+                    <Typography
+                      variant="body2"
+                      sx={{ textTransform: "none", fontWeight: "bold" }}
+                    >
+                      {item.name}
+                    </Typography>
+                  </Button>
+                ))}
           </Box>
         </Toolbar>
       </AppBar>
