@@ -8,12 +8,47 @@ import {
 } from "@mui/material";
 import logo from "../assets/LoginLogo.png";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useLoginMutation } from "../slices/usersApiSlice";
+import { setCredentials } from "../slices/authSlice";
+import { RootState } from "../store";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
+  // Setup
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
+  // Login setup
+  const [login, { isLoading }] = useLoginMutation();
+
+  const { userInfo } = useSelector((state: RootState) => state.auth);
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [navigate, userInfo]);
+
+  // Direct user to register
   const directRegister = () => {
     return navigate("/register");
+  };
+
+  // Login handler
+  const loginHandler = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const res = await login({ email, password }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate("/");
+    } catch (err: unknown) {
+      toast("Invaid Email or Password");
+    }
   };
 
   return (
@@ -32,12 +67,18 @@ const LoginPage = () => {
           label="Email"
           required={true}
           variant="outlined"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setEmail(e.target.value);
+          }}
         />
         <TextField
           type="password"
           label="Password"
           required={true}
           variant="outlined"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setPassword(e.target.value);
+          }}
         />
         <Typography
           variant="body2"
@@ -45,7 +86,7 @@ const LoginPage = () => {
         >
           No account? <Link onClick={directRegister}>Register here.</Link>
         </Typography>
-        <Button type="submit" variant="outlined">
+        <Button type="submit" onClick={loginHandler} variant="outlined">
           Login
         </Button>
       </Box>
