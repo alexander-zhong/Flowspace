@@ -1,5 +1,7 @@
+import AppBar from "../components/Appbar";
+
 const TasksPage = () => {
-  return <div>TasksPage</div>;
+  return <>Task</>;
 };
 
 export default TasksPage;

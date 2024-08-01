@@ -8,8 +8,6 @@ import { Box, Toolbar } from "@mui/material";
 const App = () => {
   return (
     <>
-      <NavbarPublic />
-      <Toolbar />
       <Box component="main">
         <ToastContainer />
         <Outlet />
