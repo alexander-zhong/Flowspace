@@ -46,8 +46,9 @@ const LoginPage = () => {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate("/");
+      toast.success("Successfully logged in");
     } catch (err: unknown) {
-      toast("Invaid Email or Password");
+      toast.error("Invaid Email or Password");
     }
   };
 
@@ -66,7 +67,7 @@ const LoginPage = () => {
           type="email"
           label="Email"
           required={true}
-          variant="outlined"
+          variant="filled"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setEmail(e.target.value);
           }}
@@ -75,7 +76,7 @@ const LoginPage = () => {
           type="password"
           label="Password"
           required={true}
-          variant="outlined"
+          variant="filled"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setPassword(e.target.value);
           }}
@@ -86,7 +87,12 @@ const LoginPage = () => {
         >
           No account? <Link onClick={directRegister}>Register here.</Link>
         </Typography>
-        <Button type="submit" onClick={loginHandler} variant="outlined">
+        <Button
+          type="submit"
+          onClick={loginHandler}
+          variant="outlined"
+          color="secondary"
+        >
           Login
         </Button>
       </Box>

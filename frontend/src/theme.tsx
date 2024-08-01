@@ -3,7 +3,7 @@ import { createTheme } from "@mui/material/styles";
 // A custom theme for this app
 const theme = createTheme({
   palette: {
-    primary: { main: "#FFFFFF" },
+    primary: { main: "#4d545c" },
     background: {
       default: "#FFFFFF",
     },

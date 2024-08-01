@@ -14,9 +14,12 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import logo from "../assets/Navbar.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store";
+import { useLogoutMutation } from "../slices/usersApiSlice";
+import { logout } from "../slices/authSlice";
+import { toast } from "react-toastify";
 
 interface Props {
   window?: () => Window;
@@ -36,7 +39,6 @@ const navUserItems = [
   { name: "Home", path: "/overview" },
   { name: "Tasks", path: "/tasks" },
   { name: "Focus", path: "/focus" },
-  { name: "Logout", path: "/logout" },
 ];
 
 export default function Navbar(props: Props) {
@@ -48,6 +50,23 @@ export default function Navbar(props: Props) {
   // Handle drawer toggle for mobile users
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
+  };
+
+  const dispatch = useDispatch();
+  const [logoutApiCall] = useLogoutMutation();
+  const navigate = useNavigate();
+
+  // Logout handler
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall({}).unwrap();
+      // Dispatch local user info
+      dispatch(logout({}));
+      navigate("/");
+      toast.success("Successfully logged out");
+    } catch (err) {
+      toast.error("Something went wrong");
+    }
   };
 
   const drawer = (
@@ -80,6 +99,16 @@ export default function Navbar(props: Props) {
                 </ListItemButton>
               </ListItem>
             ))}
+        {userInfo ? (
+          <ListItem key="Logout" disablePadding>
+            <ListItemButton
+              sx={{ textAlign: "center" }}
+              onClick={logoutHandler}
+            >
+              <ListItemText primary="Logout" />
+            </ListItemButton>
+          </ListItem>
+        ) : null}
       </List>
     </Box>
   );
@@ -90,14 +119,14 @@ export default function Navbar(props: Props) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar component="nav">
+      <AppBar component="nav" sx={{ bgcolor: "white" }}>
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{ mr: 2, display: { sm: "none" }, color: "primary.main" }}
           >
             <MenuIcon />
           </IconButton>
@@ -135,6 +164,17 @@ export default function Navbar(props: Props) {
                     </Typography>
                   </Button>
                 ))}
+            {userInfo ? (
+              <Button
+                onClick={logoutHandler}
+                key="logout"
+                sx={{ textTransform: "none" }}
+              >
+                <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+                  Logout
+                </Typography>
+              </Button>
+            ) : null}
           </Box>
         </Toolbar>
       </AppBar>
@@ -153,7 +193,7 @@ export default function Navbar(props: Props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-              bgcolor: "primary.main",
+              bgcolor: "white",
             },
           }}
         >
