@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  Link,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Link, TextField, Typography } from "@mui/material";
 import logo from "../assets/LoginLogo.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,7 +16,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
 
   // Login setup
-  const [login, { isLoading }] = useLoginMutation();
+  const [login] = useLoginMutation();
 
   const { userInfo } = useSelector((state: RootState) => state.auth);
 
@@ -46,6 +39,7 @@ const LoginPage = () => {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate("/");
+      console.log(userInfo?.name || "Hi");
       toast.success("Successfully logged in");
     } catch (err: unknown) {
       toast.error("Invaid Email or Password");
