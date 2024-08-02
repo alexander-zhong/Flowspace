@@ -36,7 +36,7 @@ const navPublicItems = [
 
 // Items for users that are logged in
 const navUserItems = [
-  { name: "Home", path: "/overview" },
+  { name: "Overview", path: "/overview" },
   { name: "Tasks", path: "/tasks" },
   { name: "Focus", path: "/focus" },
 ];

@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import NavbarPublic from "../components/NavbarPublic";
+import NavbarPublic from "../components/Navbar";
 
 const HomePage = () => {
   return <></>;

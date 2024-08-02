@@ -39,7 +39,7 @@ const LoginPage = () => {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate("/");
-      console.log(userInfo?.name || "Hi");
+
       toast.success("Successfully logged in");
     } catch (err: unknown) {
       toast.error("Invaid Email or Password");

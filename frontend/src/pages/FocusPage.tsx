@@ -1,5 +1,7 @@
+import { Container, Typography } from "@mui/material";
+
 const FocusPage = () => {
-  return <div>FocusPage</div>;
+  return <Container sx={{ marginTop: 10 }}></Container>;
 };
 
 export default FocusPage;
