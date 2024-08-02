@@ -34,6 +34,8 @@ const TasksPage = () => {
   const { data: tasks, error, isLoading } = useFetchtasksQuery();
 
   useEffect(() => {
+    console.log(tasks);
+
     if (error) {
       console.log(error);
       toast.error("Something went wrong. Internal server error.");
