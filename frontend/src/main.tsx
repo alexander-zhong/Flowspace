@@ -14,31 +14,18 @@ import theme from "./theme.tsx";
 import HomePage from "./pages/HomePage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
-import TasksPage from "./pages/TasksPage.tsx";
-import PrivateRoute from "./pages/ProtectedRoute.tsx";
-import FocusPage from "./pages/FocusPage.tsx";
 
 // Config for redux
 import store from "./store.ts";
 import { Provider } from "react-redux";
-import AppTemplate from "./pages/AppTemplate.tsx";
-import PublicTemplate from "./pages/PublicTemplate.tsx";
 
 // Router for frontend
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<App />}>
-      <Route element={<PublicTemplate />}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-      </Route>
-      <Route path="" element={<PrivateRoute />}>
-        <Route element={<AppTemplate />}>
-          <Route path="/tasks" element={<TasksPage />} />
-          <Route path="/focus" element={<FocusPage />} />
-        </Route>
-      </Route>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
     </Route>
   )
 );
