@@ -23,8 +23,18 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         method: "POST",
       }),
     }),
+    fetchtasks: builder.mutation({
+      query: () => ({
+        url: `${USERS_URL}/tasks`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useLogoutMutation, useRegisterMutation } =
-  usersApiSlice;
+export const {
+  useLoginMutation,
+  useLogoutMutation,
+  useRegisterMutation,
+  useFetchtasksMutation,
+} = usersApiSlice;
