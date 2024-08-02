@@ -1,4 +1,6 @@
 import { apiSlice } from "./apiSlice";
+import { Task } from "./authSlice";
+
 const USERS_URL = "/api/users";
 
 export const usersApiSlice = apiSlice.injectEndpoints({
@@ -23,7 +25,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         method: "POST",
       }),
     }),
-    fetchtasks: builder.mutation({
+    fetchtasks: builder.query<Task[], void>({
       query: () => ({
         url: `${USERS_URL}/tasks`,
         method: "GET",
@@ -36,5 +38,5 @@ export const {
   useLoginMutation,
   useLogoutMutation,
   useRegisterMutation,
-  useFetchtasksMutation,
+  useFetchtasksQuery,
 } = usersApiSlice;

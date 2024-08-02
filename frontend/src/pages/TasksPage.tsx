@@ -5,7 +5,9 @@ import Grid from "@mui/material/Grid";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
-
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import { useFetchtasksQuery } from "../slices/usersApiSlice";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#fff",
   ...theme.typography.body2,
@@ -28,6 +30,15 @@ const TasksPage = () => {
   // Get the user's tasks to display
   const dispatch = useDispatch();
   const { userTasks } = useSelector((state: RootState) => state.auth);
+
+  const { data: tasks, error, isLoading } = useFetchtasksQuery();
+
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+      toast.error("Something went wrong. Internal server error.");
+    }
+  }, [userTasks]);
 
   return (
     <>

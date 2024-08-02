@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // Interface corresponding with models from backend
-interface Task {
+export interface Task {
   title: string;
   task: string;
   subtasks: string[];

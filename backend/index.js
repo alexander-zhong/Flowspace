@@ -19,6 +19,7 @@ app.use(
     origin: process.env.FRONTEND,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"],
+    credentials: true,
   })
 );
 
