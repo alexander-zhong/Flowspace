@@ -31,16 +31,14 @@ const TasksPage = () => {
   const dispatch = useDispatch();
   const { userTasks } = useSelector((state: RootState) => state.auth);
 
-  const { data: tasks, error, isLoading } = useFetchtasksQuery();
+  const { data, error, isLoading } = useFetchtasksQuery();
 
   useEffect(() => {
-    console.log(tasks);
-
     if (error) {
       console.log(error);
       toast.error("Something went wrong. Internal server error.");
     }
-  }, [userTasks]);
+  }, [data]);
 
   return (
     <>
