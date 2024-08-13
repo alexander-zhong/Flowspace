@@ -1,15 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // Interface corresponding with models from backend
-export interface Task {
-  title: string;
+interface SubTask {
+  _id: string;
   task: string;
-  subtasks: string[];
+  check: boolean;
+}
+
+export interface Task {
+  _id: string;
+  title: string;
+  subtasks: SubTask[];
 }
 
 // interface for user information
 interface UserInfo {
-  id: string;
+  _id: string;
   name: string;
   email: string;
 }
@@ -51,13 +57,13 @@ const authSlice = createSlice({
       localStorage.removeItem("userInfo");
       localStorage.removeItem("userTasks");
     },
-    setTasks: (state, action) => {
+    setAuthSliceTasks: (state, action) => {
       state.userTasks = action.payload;
       localStorage.setItem("userTasks", JSON.stringify(action.payload));
     },
   },
 });
 
-export const { setCredentials, logout } = authSlice.actions;
+export const { setCredentials, logout, setAuthSliceTasks } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -35,6 +35,14 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         credentials: "include",
       }),
     }),
+    updatetasks: builder.mutation({
+      query: (data) => ({
+        url: `${USERS_URL}/tasks`,
+        method: "PUT",
+        credentials: "include",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -43,4 +51,5 @@ export const {
   useLogoutMutation,
   useRegisterMutation,
   useFetchtasksQuery,
+  useUpdatetasksMutation,
 } = usersApiSlice;

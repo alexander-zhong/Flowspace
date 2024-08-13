@@ -7,17 +7,13 @@ const taskSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    task: {
-      type: String,
-      required: true,
-    },
     subtasks: {
-      type: [String],
+      type: [{ task: String, check: Boolean }],
       required: true,
     },
   },
   {
-    _id: false,
+    _id: true,
   }
 );
 
