@@ -17,7 +17,7 @@ dotenv.config();
 // Cors policy
 app.use(
   cors({
-    origin: process.env.FRONTEND,
+    origin: "https://flowspace-lac.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"],
     credentials: true,
