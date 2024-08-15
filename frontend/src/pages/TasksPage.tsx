@@ -10,8 +10,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store";
+import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import {
@@ -42,7 +41,6 @@ const AddItem = styled(Button)(({ theme }) => ({
 const TasksPage = () => {
   // Get the user's tasks to display
   const dispatch = useDispatch();
-  const { userTasks } = useSelector((state: RootState) => state.auth);
 
   const [tasks, setTasks] = useState<Task[]>([]);
 

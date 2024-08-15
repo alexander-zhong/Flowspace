@@ -51,7 +51,7 @@ const authSlice = createSlice({
       localStorage.setItem("userInfo", JSON.stringify(action.payload));
     },
     // logout the frontend userItems
-    logout: (state, action) => {
+    logout: (state) => {
       state.userInfo = null;
       state.userTasks = null;
       localStorage.removeItem("userInfo");
