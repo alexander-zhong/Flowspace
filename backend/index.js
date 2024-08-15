@@ -9,12 +9,6 @@ import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
 // Config the express app
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-dotenv.config();
-
-// Cors policy
 app.use(
   cors({
     origin: "https://flowspace-lac.vercel.app",
@@ -23,6 +17,11 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+dotenv.config();
 
 // Home
 app.get("/", (req, res) => {
