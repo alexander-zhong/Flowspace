@@ -56,7 +56,7 @@ export default function Navbar(props: Props) {
     try {
       await logoutApiCall({}).unwrap();
       // Dispatch local user info
-      dispatch(logout({}));
+      dispatch(logout());
       navigate("/");
       toast.success("Successfully logged out");
     } catch (err) {
