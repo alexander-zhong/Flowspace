@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://flowspaceapi-alexander-zhongs-projects.vercel.app",
+  baseUrl: "https://flowspaceapi.vercel.app",
 });
 
 export const apiSlice = createApi({
