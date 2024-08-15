@@ -51,6 +51,11 @@ const TasksPage = () => {
   const [updateTasks] = useUpdatetasksMutation();
   const [fetchai] = useFetchaiMutation();
 
+  // For adding tasks
+  const [showAdd, setShowAdd] = useState(false);
+  const [newTask, setNewTask] = useState({ _id: "", title: "", subtasks: "" });
+  const [textAI, setTextAI] = useState("");
+
   // Initializes the tasks when rendering component
   useEffect(() => {
     if (error) {
@@ -81,11 +86,7 @@ const TasksPage = () => {
     updateTasksAPI(updatedTasks);
   };
 
-  // For adding tasks
-  const [showAdd, setShowAdd] = useState(false);
-  const [newTask, setNewTask] = useState({ _id: "", title: "", subtasks: "" });
-  const [textAI, setTextAI] = useState("");
-
+  // Handle adding tasks
   const handleAddedTask = async () => {
     if (newTask.title === "" || newTask.subtasks === "") {
       toast.error("Must enter text to add a task!");
