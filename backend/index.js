@@ -4,6 +4,7 @@ import cors from "cors";
 import connectToDB from "./config/dbSetup.js";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/userRoutes.js";
+import AIRoutes from "./routes/AIRoutes.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
 // Config the express app
@@ -30,6 +31,8 @@ app.get("/", (req, res) => {
 
 // User & Tasks routes
 app.use("/api/users", userRoutes);
+// AI Routes
+app.use("/api/ai", AIRoutes);
 
 // Error handling middleware
 app.use(notFound);

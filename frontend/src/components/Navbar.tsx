@@ -29,17 +29,12 @@ const drawerWidth = 240;
 
 // Items for users that are not logged in
 const navPublicItems = [
-  { name: "Flowspace", path: "/" },
   { name: "Login", path: "/login" },
   { name: "Register", path: "/register" },
 ];
 
 // Items for users that are logged in
-const navUserItems = [
-  { name: "Overview", path: "/overview" },
-  { name: "Tasks", path: "/tasks" },
-  { name: "Focus", path: "/focus" },
-];
+const navUserItems = [{ name: "Tasks", path: "/tasks" }];
 
 export default function Navbar(props: Props) {
   const { userInfo } = useSelector((state: RootState) => state.auth);

@@ -2,6 +2,7 @@ import { apiSlice } from "./apiSlice";
 import { Task } from "./authSlice";
 
 const USERS_URL = "/api/users";
+const AI_URL = "/api/ai";
 
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -43,6 +44,14 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    fetchai: builder.mutation({
+      query: (data) => ({
+        url: `${AI_URL}/tasks`,
+        method: "POST",
+        credentials: "include",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -52,4 +61,5 @@ export const {
   useRegisterMutation,
   useFetchtasksQuery,
   useUpdatetasksMutation,
+  useFetchaiMutation,
 } = usersApiSlice;

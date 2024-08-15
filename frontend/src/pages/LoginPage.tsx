@@ -22,7 +22,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/");
+      navigate("/tasks");
     }
   }, [navigate, userInfo]);
 
@@ -38,7 +38,7 @@ const LoginPage = () => {
     try {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
-      navigate("/");
+      navigate("/tasks");
 
       toast.success("Successfully logged in");
     } catch (err: unknown) {

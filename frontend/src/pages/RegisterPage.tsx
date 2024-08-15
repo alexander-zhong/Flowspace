@@ -24,7 +24,7 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/");
+      navigate("/tasks");
     }
   }, [navigate, userInfo]);
 
@@ -45,7 +45,7 @@ const RegisterPage = () => {
         confirmpassword,
       }).unwrap();
       dispatch(setCredentials({ ...res }));
-      navigate("/");
+      navigate("/tasks");
       toast.success("Successfully registered");
     } catch (err: unknown) {
       toast.error("Email taken or password does not match!");

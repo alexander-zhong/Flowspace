@@ -15,6 +15,7 @@ import { RootState } from "../store";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import {
+  useFetchaiMutation,
   useFetchtasksQuery,
   useUpdatetasksMutation,
 } from "../slices/usersApiSlice";
@@ -48,6 +49,7 @@ const TasksPage = () => {
   // For queries and mutations
   const { data, error, isLoading, refetch } = useFetchtasksQuery();
   const [updateTasks] = useUpdatetasksMutation();
+  const [fetchai] = useFetchaiMutation();
 
   // Initializes the tasks when rendering component
   useEffect(() => {
@@ -126,6 +128,27 @@ const TasksPage = () => {
     }
   };
 
+  // Handle AI Generated tasks from backend
+  const handleAITask = async () => {
+    try {
+      if (textAI !== "") {
+        const result = await fetchai({
+          userPrompt: textAI,
+          title: newTask.title,
+          taskblob: newTask.subtasks,
+        }).unwrap();
+
+        setNewTask({ ...newTask, subtasks: result.tasks });
+        setTextAI("");
+        toast.success("Successfully Generated");
+      } else {
+        toast.error("Enter instructions first!");
+      }
+    } catch (err) {
+      toast.error("Internal server error");
+    }
+  };
+
   return (
     <>
       {isLoading ? (
@@ -193,7 +216,9 @@ const TasksPage = () => {
                       setTextAI(e.target.value);
                     }}
                   />
-                  <Button sx={{ borderLeft: 5 }}>Use AI</Button>
+                  <Button sx={{ borderLeft: 5 }} onClick={handleAITask}>
+                    Use AI
+                  </Button>
                   <Button sx={{ borderRight: 5 }} onClick={handleAddedTask}>
                     Add Task
                   </Button>
